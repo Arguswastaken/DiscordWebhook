@@ -84,7 +84,7 @@ namespace DiscordWebhook
             if (!username)
                 newNVC.Remove("username");
             if (!avatar)
-                newNVC.Remove("avatar");
+                newNVC.Remove("avatar_url");
 
             return newNVC;
         }
