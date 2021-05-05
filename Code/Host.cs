@@ -23,9 +23,10 @@ namespace DiscordWebhook
             AssignVariable("Please enter a valid webhook username. Leave blank to use default.", ref username);
             AssignVariable("Please enter an avatar URL. Leave blank to use default.", ref avatar);
 
-            Console.WriteLine($"{username} {avatar} {url}");
-
             Console.Clear();
+
+            Console.WriteLine("Webhook data set. You may now begin sending requests.\n" +
+                "[e.g. \"Cookies\" will send a request containing the content \"Cookies\".]\n");
         }
 
         private static void AssignVariable(string prompt, ref string variable)
