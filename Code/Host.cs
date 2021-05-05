@@ -2,13 +2,13 @@
 
 namespace DiscordWebhook
 {
-    class Host
+    public sealed class Host
     {
-        static string username;
-        static string avatar;
-        static string url;
+        public static string username;
+        public static string avatar;
+        public static string url;
 
-        static void Main()
+        public static void Main()
         {
             SetWebhookData();
             for (; ; )
@@ -17,24 +17,28 @@ namespace DiscordWebhook
             }
         }
 
-        static void SetWebhookData()
+        private static void SetWebhookData()
         {
-            Console.WriteLine("Please enter a valid webhook URL.");
-            string input = Console.ReadLine();
-            url = input == "" ? null : input;
+            AssignVariable("Please enter a valid webhook URL.", ref url);
+            AssignVariable("Please enter a valid webhook username. Leave blank to use default.", ref username);
+            AssignVariable("Please enter an avatar URL. Leave blank to use default.", ref avatar);
 
-            Console.WriteLine("\nPlease enter a valid webhook username. Leave blank to use default.");
-            input = Console.ReadLine();
-            username = input == "" ? null : input;
-
-            Console.WriteLine("\nPlease enter an avatar URL. Leave blank to use default.");
-            input = Console.ReadLine();
-            avatar = input == "" ? null : input;
+            Console.WriteLine($"{username} {avatar} {url}");
 
             Console.Clear();
         }
 
-        static void CallRequest(string content)
+        private static void AssignVariable(string prompt, ref string variable)
+        {
+            Print(prompt, ConsoleColor.Green);
+
+            string input = Console.ReadLine();
+            variable = string.IsNullOrWhiteSpace(input) ? null : input;
+
+            Console.WriteLine();
+        }
+
+        private static void CallRequest(string content)
         {
             DiscordWebhook.Request request = new DiscordWebhook.Request(content, username, avatar, url);
             DiscordWebhook.Execute(request);
